@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 const corsOptions = {
-    origin:'https://jobportalsvit.netlify.app',
+    origin:'https://jp-frontend-x3pv.onrender.com',
     credentials:true
 }
 
