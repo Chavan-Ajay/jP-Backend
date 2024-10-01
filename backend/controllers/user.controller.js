@@ -93,11 +93,23 @@ export const login = async (req, res) => {
         }
 
         // return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'strict' }).json({
-        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'none' }).json({
+        // return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'none' }).json({
+        //     message: `Welcome back ${user.fullname}`,
+        //     user,
+        //     success: true
+        // })
+
+        return res.status(200).cookie("token", token, {
+            maxAge: 1 * 24 * 60 * 60 * 1000,  // 1 day
+            httpOnly: true,                   // Prevent access from JavaScript (good for security)
+            sameSite: 'none',                 // Allow cross-origin requests
+            secure: true                      // Only send cookie over HTTPS
+        }).json({
             message: `Welcome back ${user.fullname}`,
             user,
             success: true
-        })
+        });
+
     } catch (error) {
         console.log(error);
     }
