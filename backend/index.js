@@ -16,12 +16,33 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
+
+// const corsOptions = {
+//     origin:'https://jp-frontend-x3pv.onrender.com',
+//     credentials:true
+// }
+
+// app.use(cors(corsOptions));
+
+const allowedOrigins = [
+  'https://jp-frontend-x3pv.onrender.com',
+  'https://jobportalsvit.netlify.app',  // Add more domains here
+  'https://example.com'                 // Add as many as you need
+];
+
 const corsOptions = {
-    origin:'https://jp-frontend-x3pv.onrender.com',
-    credentials:true
-}
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);  // Origin is allowed
+    } else {
+      callback(new Error('Not allowed by CORS'));  // Origin is not allowed
+    }
+  },
+  credentials: true  // Allow credentials (cookies, headers) to be sent
+};
 
 app.use(cors(corsOptions));
+
 
 const PORT = process.env.PORT || 3000;
 
